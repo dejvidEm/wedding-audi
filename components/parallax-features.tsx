@@ -62,6 +62,7 @@ const TextParallaxContent = ({
       style={{
         paddingLeft: IMG_PADDING,
         paddingRight: IMG_PADDING,
+        transform: "translateZ(0)",
       }}
       className="relative"
     >
@@ -93,6 +94,8 @@ const StickyImage = ({ imgUrl }: { imgUrl: string }) => {
         height: `calc(100vh - ${IMG_PADDING * 2}px)`,
         top: IMG_PADDING,
         scale,
+        willChange: "transform",
+        transform: "translateZ(0)",
       }}
       ref={targetRef}
       className="sticky z-0 overflow-hidden rounded-3xl"
@@ -101,6 +104,7 @@ const StickyImage = ({ imgUrl }: { imgUrl: string }) => {
         className="absolute inset-0 bg-neutral-950/40"
         style={{
           opacity,
+          willChange: "opacity",
         }}
       />
     </motion.div>
@@ -114,7 +118,7 @@ const OverlayCopy = ({ subheading, heading }: { subheading: string; heading: str
     offset: ["start end", "end start"],
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50])
   const opacity = useTransform(scrollYProgress, [0.25, 0.5, 0.75], [0, 1, 0])
 
   return (
@@ -122,6 +126,8 @@ const OverlayCopy = ({ subheading, heading }: { subheading: string; heading: str
       style={{
         y,
         opacity,
+        willChange: "transform, opacity",
+        transform: "translateZ(0)",
       }}
       ref={targetRef}
       className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center text-white px-4"
